@@ -1,28 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
 function App() {
-  setInterval(updateTime, 1000);
-  const [time, setTime] = React.useState(new Date().toLocaleTimeString());
-  function updateTime() {
-    const newTime = new Date().toLocaleTimeString();
-    setTime(newTime);
-  }
-  // function add() {
-  //   setCount(count + 1);
-  // }
+  const [FullName, setFullName] = useState({
+    fName: "",
+    lName: "",
+    email: ""
+  });
 
-  // function minus() {
-  //   setCount(count - 1);
-  // }
+  function nameChange(event) {
+    const { name, value } = event.target;
+
+    setFullName((prevValue) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value
+        };
+      }
+    });
+  }
+
   return (
-    <div className="style">
-      <h1>{time}</h1>
-      {/* <button className="btn" onClick={minus}>
-        -
-      </button>
-      <button className="btn" onClick={add}>
-        +
-      </button> */}
+    <div className="container">
+      <h1>
+        Hello {FullName.fName} {FullName.lName}
+      </h1>
+      <form onSubmit="">
+        <input
+          name="fName"
+          onChange={nameChange}
+          value={FullName.fName}
+          placeholder="First Name"
+        />
+        <input
+          name="lName"
+          onChange={nameChange}
+          value={FullName.lName}
+          placeholder="Last Name"
+        />
+        <button>Submit</button>
+      </form>
     </div>
   );
 }
