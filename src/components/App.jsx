@@ -7,12 +7,18 @@ function App() {
   }
   const [items, setList] = React.useState([]);
   function addItem() {
-    setList((prevList) => {
-      return [...prevList, item];
-    });
+    if (item !== "") {
+      setList((prevList) => {
+        return [...prevList, item];
+      });
+    } else {
+      setList((prevList) => {
+        return [...prevList];
+      });
+    }
     setItem("");
   }
-  
+
   return (
     <div className="container">
       <div className="heading">
